@@ -15,6 +15,12 @@ export const Registration=async(req,res)=>{
    
 }
 
+
+
+
+
+
+
 export const Login=async(req,res)=>{
 
     try{
@@ -45,15 +51,44 @@ export const Login=async(req,res)=>{
 
 
 
-export const ProfileDetails=async(req,res)=>{
 
-    return res.json({status:"success"})
+export const ProfileDetails=async (req,res)=>{
+
+try {
+    let user_id=req.headers['user_id']
+    console.log(user_id)
+    let data=await UsersModel.findOne({"_id":user_id})
+    return res.json({status:"success","message":"User profile successfilly",data:data})
+
 }
+catch (e){
+    return res.json({status:"success","message":e.toString()})
+}
+}
+
+
+
+
+
 
 export const ProfileUpdate=async(req,res)=>{
 
-    return res.json({status:"success"})
+    try {
+        let reqBody=req.body
+        let user_id=req.headers['user_id']
+       const data= await UsersModel.updateOne({"_id":user_id},reqBody)
+        return res.json({status:"success","message":"User Update successfilly",data:data})
+
+    }
+    catch (e){
+        return res.json({status:"success","message":e.toString()})
+    }
+
 }
+
+
+
+
 
 export const EmailVerify=async(req,res)=>{
 

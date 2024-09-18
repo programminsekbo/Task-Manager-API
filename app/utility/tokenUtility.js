@@ -19,10 +19,15 @@ export const TokenEncode=(email,user_id)=>{
 
 
 
+export  const TokenDecode=(token)=>{
+try {
+  
+    return jwt.verify(token,JWT_KEY)
+}catch (e) {
+
+    return null
 
 
-
-export const TokenDecode=async(req,res)=>{
-
+}
 
 }
