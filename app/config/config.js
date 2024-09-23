@@ -11,11 +11,11 @@ export const JWT_EXPIRE_TIME=30*24*60*60
 
 
 
-export const EMAIL_HOST="mail.teamrabbil.com"
-export const EMAIL_PORT=25
-export const EMAIL_SECURITY=false
-export const EMAIL_USER="info@teamrabbil.com"
-export const EMAIL_PASS="~sR4[bhaC[Qs"
+export const EMAIL_HOST= "mail.themesoft69.com"    //"mail.teamrabbil.com"
+export const EMAIL_PORT=465   //25
+export const EMAIL_SECURITY=true
+export const EMAIL_USER= "mern_ostad@themesoft69.com"  //"info@teamrabbil.com"
+export const EMAIL_PASS="h4e24DFTj6v)"   //"~sR4[bhaC[Qs"
 export const EMAIL_UN_AUTH=false
 
 

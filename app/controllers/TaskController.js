@@ -1,25 +1,99 @@
-export const CreateTask=async(req,res)=>{
+//import tasksModel from "../model/TasksModel.js";
+import TasksModel from "../model/TasksModel.js";
+import mongoose from "mongoose";
 
-    return res.json({status:"success"})
+
+export const CreateTask=async(req,res)=>{
+try {
+    let user_id=req.header["user_id"]
+    let requestBody=req.body;
+    requestBody.user_id=user_id;
+    await  TasksModel.create(requestBody)
+    return res.json({status:"success",message:"task successfuily"});
+}catch (e){
+    return res.json({status:"fail",message:e.toString()});
+}
+
 
 }
+
+
+
+
+
+
 
 export const UpdateTaskStatus=async(req,res)=>{
+    try {
+        let id=req.params.id
+        let status=req.params.status;
+        let user_id=req.headers['user_id']
+        let data= await TasksModel.updateOne({"_id":id,"user_id":user_id},{
+            status:status,
 
-    return res.json({status:"success"})
+        })
+        return res.json({status:"success",message:"task list",data:data});
+    }catch (e){
+        return res.json({status:"fail",message:e.toString()})
+    }
 }
+
+
+
 
 export const TaskListByStatus=async(req,res)=>{
-
-    return res.json({status:"success"})
+try {
+    let user_id=req.headers['user_id']
+    let status=req.params.status;
+   let data=await TasksModel.find({user_id:user_id, status:status,})
+    return res.json({status:"success",message:"task list",data:data});
+}catch (e){
+    return res.json({status:"fail",message:e.toString()})
 }
+
+}
+
+
+
 
 export const DeleteTask=async(req,res)=>{
+  try {
+      let id=req.params.id;
+      let user_id=req.headers['user_id'];
+      await TasksModel.deleteOne({"_id":id,"user_id":user_id})
+      return res.json({status:"success",message:"task delete successfuily",});
+  }catch (e){
+      return res.json({status:"fail",message:e.toString()})
+  }
 
-    return res.json({status:"success"})
+
+
+
 }
+
+
+
+
+
+
+
+
+
 
 export const CountTask=async(req,res)=>{
 
-    return res.json({status:"success"})
+try {
+    let ObjectId=mongoose.Types.ObjectId;
+    let user_id= new ObjectId(req.headers['user_id'])
+    let data=await TasksModel.aggregate([
+        {$group:{_id:"$status",sum:{$count:{}}}},
+        {$match:{user_id:user_id}}
+
+    ])
+    return res.json({status:"success",message:"count  successfuily",});
+}catch (e){
+    return res.json({status:"fail",message:e.toString()})
+}
+
+
 }
