@@ -58,7 +58,7 @@ export const ProfileDetails=async (req,res)=>{
 
 try {
     let user_id=req.headers['user_id']
-    console.log(user_id)
+
     let data=await UsersModel.findOne({"_id":user_id})
     return res.json({status:"success","message":"User profile successfilly",data:data})
 
@@ -113,8 +113,8 @@ export const EmailVerify=async(req,res)=> {
             return res.json({status: "fail", massage: "user email does not exist"})
         }
     } catch (e) {
-        return res.json({status: "fail", massage: e.toString()})
-    }
+        return res.json({status:
+        "fail", massage: e.toString()})    }
 }
 
 
